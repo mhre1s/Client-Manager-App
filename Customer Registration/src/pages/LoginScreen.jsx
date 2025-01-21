@@ -1,33 +1,53 @@
-import React, { useState } from "react";
-import userImage from '../assets/user.png'
-import techImage from '../assets/techs.png'
+import React, { useState, useEffect } from "react";
+import userImage from '../assets/user.png';
+import techImage from '../assets/techs.png';
 import { useNavigate } from "react-router";
 
 const LoginScreen = () => {
-    
-    let navigate = useNavigate()
-    const [user, setUser] = useState('')
-    const [password, setPassword] = useState('')
-    const [error, setError] = useState('')
+  const navigate = useNavigate();
 
-    const handleChangeUser = (e) =>{
-        setUser(e.target.value)
-        console.log(e.target.value)
-    }
+ 
+  const [user, setUser] = useState('');
+  const [password, setPassword] = useState('');
+  const [remember, setRemember] = useState(false);
+  const [error, setError] = useState('');
 
-    const handleChangePassword = (e) =>{
-        setPassword(e.target.value)
-        console.log(e.target.value)
-    }
+  
+  useEffect(() => {
+    const savedUser = localStorage.getItem('rememberedUser');
+    const savedPassword = localStorage.getItem('rememberedPassword');
 
-    const handleSubmit = (e) =>{
-        e.preventDefault()
-        if(user === 'juanbatista' && password === '30092810!'){
-            navigate('/teste')
-        } else{
-            setError('Usuário ou senha inválidos')
-        }    
+    if (savedUser && savedPassword) {
+      setUser(savedUser);
+      setPassword(savedPassword);
+      setRemember(true);
     }
+  }, []);
+
+  
+  const handleChangeUser = (e) => setUser(e.target.value);
+  const handleChangePassword = (e) => setPassword(e.target.value);
+  const handleRememberChange = (e) => setRemember(e.target.checked);
+
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (user === 'teste' && password === 'teste') {
+      
+      if (remember) {
+        localStorage.setItem('rememberedUser', user);
+        localStorage.setItem('rememberedPassword', password);
+      } else {
+        localStorage.removeItem('rememberedUser');
+        localStorage.removeItem('rememberedPassword');
+      }
+      navigate('/teste');
+    } else {
+      setError('Usuário ou senha inválidos');
+    }
+  };
+
   return (
     <div>
       <main className="w-full min-h-screen flex flex-col md:flex-row items-center justify-center mx-auto my-auto">
@@ -39,41 +59,52 @@ const LoginScreen = () => {
               alt="Logo do usuário"
             />
             <h1 className="font-bold text-xl mb-7">Login</h1>
-            <form onSubmit={handleSubmit} className="w-full max-w-xl flex justify-center items-center gap-4 flex-col">
-                <input
-                    onChange={handleChangeUser}
-                    className="w-full p-2 rounded-lg outline-none focus:bg-white bg-gray-100 shadow-md shadow-slate-800"
-                    type="text"
-                    name="email"
-                    id="email"
-                    placeholder="Digite seu usuário..."
-                />
-                <input
-                    onChange={handleChangePassword}
-                    className="w-full p-2 rounded-lg outline-none focus:bg-white bg-gray-100 shadow-md shadow-slate-800"
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="**************"
-                />
-                {error && <p className="text-red-600">{error}</p>}
-                <div className="w-full flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                        <input type="checkbox" name="remeberPass" id="rememberPass" />
-                        <label className="font-medium" htmlFor="rememberPass">
-                        Lembrar senha
-                        </label>
-                    </div>
-                    <a
-                        className="text-sky-600 hover:text-sky-400 duration-200"
-                        href="#"
-                    >
-                        Esqueceu a senha
-                    </a>
+            <form
+              onSubmit={handleSubmit}
+              className="w-full max-w-xl flex justify-center items-center gap-4 flex-col"
+            >
+              <input
+                onChange={handleChangeUser}
+                value={user}
+                className="w-full p-2 rounded-lg outline-none focus:bg-white bg-gray-100 shadow-md shadow-slate-800"
+                type="text"
+                name="email"
+                id="email"
+                placeholder="Digite seu usuário..."
+              />
+              <input
+                onChange={handleChangePassword}
+                value={password}
+                className="w-full p-2 rounded-lg outline-none focus:bg-white bg-gray-100 shadow-md shadow-slate-800"
+                type="password"
+                name="password"
+                id="password"
+                placeholder="**************"
+              />
+              {error && <p className="text-red-600">{error}</p>}
+              <div className="w-full flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="rememberPass"
+                    id="rememberPass"
+                    checked={remember}
+                    onChange={handleRememberChange}
+                  />
+                  <label className="font-medium" htmlFor="rememberPass">
+                    Lembrar senha
+                  </label>
                 </div>
-                <button className="w-full bg-blue-600 p-2 rounded-lg text-white text-lg font-medium hover:bg-blue-500">
+                <a
+                  className="text-sky-600 hover:text-sky-400 duration-200"
+                  href="#"
+                >
+                  Esqueceu a senha
+                </a>
+              </div>
+              <button className="w-full bg-blue-600 p-2 rounded-lg text-white text-lg font-medium hover:bg-blue-500">
                 Acessar
-                </button>
+              </button>
             </form>
           </div>
         </section>
@@ -93,4 +124,3 @@ const LoginScreen = () => {
 };
 
 export default LoginScreen;
-
