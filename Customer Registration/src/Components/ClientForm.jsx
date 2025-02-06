@@ -107,6 +107,19 @@ const ClientForm = ({ formData, setFormData, handleSubmit, children }) => {
           className="w-full border p-2 rounded-lg"
         />
       </div>
+      <div>
+        <label htmlFor="observation" className="block font-medium">Observações</label>
+        <textarea 
+          className="w-full p-2 border rounded mb-2" 
+          rows="4" 
+          name="observation" 
+          id="observation" 
+          placeholder="Observações"
+          value={formData.observation}
+          onChange={handleChange}>
+
+        </textarea>
+      </div>
       <div className="flex flex-col gap-3 justify-end space-x-4">
         {children}
       </div>

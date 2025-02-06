@@ -13,10 +13,12 @@
       "register": "adasdsadad",
       "registers": [
         {
-          "text": "ajidsuhiasdubiasubifa",
-          "value": "150"
+          "text": "ASDSADSAAD",
+          "value": "123",
+          "status": "canceled"
         }
-      ]
+      ],
+      "observation": "AKJNDSBAJSABDASHBJDSAHBJDASJBHKDA"
     },
     {
       "id": "1aab",
@@ -29,7 +31,18 @@
       "complement": "",
       "provider": "Trixnet",
       "register": "axsadsdasdasdsaasda",
-      "registers": []
+      "registers": [
+        {
+          "text": "adsaddsadasd",
+          "value": "130",
+          "status": "completed"
+        },
+        {
+          "text": "asdsadsda",
+          "value": "120",
+          "status": "canceled"
+        }
+      ]
     },
     {
       "id": "8bc2",
@@ -209,6 +222,18 @@
       "reference": "sdasdasd",
       "complement": "asdadsa",
       "provider": "adsadsadas",
+      "registers": []
+    },
+    {
+      "id": "612d",
+      "name": "Matheus Reis",
+      "phone": "(12) 99226-6643",
+      "street": "Rua Cacique Cunhambebe",
+      "number": "1162",
+      "neighborhood": "centro",
+      "reference": "dsadssad",
+      "complement": "asdasdsa",
+      "provider": "asdsad",
       "registers": []
     }
   ]

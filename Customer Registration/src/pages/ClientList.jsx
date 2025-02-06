@@ -15,6 +15,7 @@ const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [currentClientId, setCurrentClientId] = useState(null);
+  const [status, setStatus] = useState('')
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -24,12 +25,29 @@ const Home = () => {
     reference: "",
     complement: "",
     provider: "",
+    observation:"",
     registers: [],
   });
 
-  // Para controlar a paginação
+  const changeColor = (status) =>{
+    console.log(status)
+    if(status === 'completed'){
+      let color = 'border-green-500'
+      return color
+    }
+    if(status === 'waiting'){
+      let color = 'border-blue-500'
+      return color
+    }
+    if(status === 'canceled'){
+      let color = 'border-red-500'
+      return color
+    }
+    return "border-gray-500"
+  }
+
   const [currentPage, setCurrentPage] = useState(1);
-  const clientsPerPage = 11; // Número de clientes por página
+  const clientsPerPage = 11;
 
   const fetchClients = async () => {
     try {
@@ -93,6 +111,7 @@ const Home = () => {
         reference: "",
         complement: "",
         provider: "",
+        observation: "",
         registers: [],
       });
       setIsModalOpen(false);
@@ -108,7 +127,7 @@ const Home = () => {
   const handleAddRegister = () => {
     setFormData((prevData) => ({
       ...prevData,
-      registers: [...prevData.registers, { text: "", value: "" }],
+      registers: [...prevData.registers, { text: "", value: "" , status: "waiting"}],
     }));
   };
 
@@ -283,6 +302,7 @@ const Home = () => {
             reference: "",
             complement: "",
             provider: "",
+            observation:"",
             registers: [],
           });
           setEditMode(false);
@@ -308,7 +328,7 @@ const Home = () => {
                 Registros de Atendimento
               </label>
               {formData.registers.map((register, index) => (
-                <div key={index} className="mb-4 border p-3 rounded-lg">
+                <div key={index} className={`mb-4 border p-3 rounded-lg ${changeColor(register.status)}`}>
                   <textarea
                     value={register.text}
                     onChange={(e) =>
@@ -328,13 +348,25 @@ const Home = () => {
                     className="w-full p-2 border rounded mb-2"
                     placeholder="Digite o valor cobrado"
                   />
-                  <button
+                  <div className="flex flex-col gap-3">
+                    <div className="flex justify-around">
+                      <button onClick={(e) => {e.preventDefault(); handleRegisterChange(index, "status", "completed")}} 
+                        className="mx-auto px-2 py-1 bg-green-600 text-white rounded-lg hover:bg-green-500">Concluído</button>
+                      <button onClick={(e) => {e.preventDefault(); handleRegisterChange(index, "status", "waiting")}} 
+                         className="mx-auto px-2 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-500">Em andamento</button>
+                      <button onClick={(e) => {e.preventDefault(); handleRegisterChange(index, "status", "canceled")}} 
+                         className="mx-auto px-2 py-1 bg-red-600 text-white rounded-lg hover:bg-red-500">Cancelado</button>
+                    </div>
+                   
+                    <button
                     type="button"
                     onClick={() => handleDeleteRegister(index)}
                     className="block mx-auto px-2 py-1 bg-red-600 text-white rounded-lg hover:bg-red-500"
                   >
-                    Excluir
-                  </button>
+                      Excluir
+                    </button>
+                  </div>
+                  
                 </div>
               ))}
 
