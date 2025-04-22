@@ -1,50 +1,51 @@
 import React, { useState, useEffect } from "react";
 import userImage from '../assets/user.png';
-import techImage from '../assets/techs.png';
 import { useNavigate } from "react-router";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/firebase";
 
 const LoginScreen = () => {
   const navigate = useNavigate();
 
- 
-  const [user, setUser] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
 
-  
+  // Recuperar email e senha salvos, se "lembrar senha" estiver ativo
   useEffect(() => {
-    const savedUser = localStorage.getItem('rememberedUser');
+    const savedEmail = localStorage.getItem('rememberedUser');
     const savedPassword = localStorage.getItem('rememberedPassword');
 
-    if (savedUser && savedPassword) {
-      setUser(savedUser);
+    if (savedEmail && savedPassword) {
+      setEmail(savedEmail);
       setPassword(savedPassword);
       setRemember(true);
     }
   }, []);
 
-  
-  const handleChangeUser = (e) => setUser(e.target.value);
+  const handleChangeEmail = (e) => setEmail(e.target.value);
   const handleChangePassword = (e) => setPassword(e.target.value);
   const handleRememberChange = (e) => setRemember(e.target.checked);
 
-  
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
 
-    if (user === 'teste' && password === 'teste') {
-      
       if (remember) {
-        localStorage.setItem('rememberedUser', user);
+        localStorage.setItem('rememberedUser', email);
         localStorage.setItem('rememberedPassword', password);
       } else {
         localStorage.removeItem('rememberedUser');
         localStorage.removeItem('rememberedPassword');
       }
-      navigate('/teste');
-    } else {
-      setError('Usuário ou senha inválidos');
+
+      navigate("/client-list");
+    } catch (err) {
+      console.error("Erro no login:", err);
+      setError("Email ou senha inválidos");
     }
   };
 
@@ -64,13 +65,13 @@ const LoginScreen = () => {
               className="w-full max-w-xl flex justify-center items-center gap-4 flex-col"
             >
               <input
-                onChange={handleChangeUser}
-                value={user}
+                onChange={handleChangeEmail}
+                value={email}
                 className="w-full p-2 rounded-lg outline-none focus:bg-white bg-gray-100 shadow-md shadow-slate-800"
-                type="text"
+                type="email"
                 name="email"
                 id="email"
-                placeholder="Digite seu usuário..."
+                placeholder="Digite seu email..."
               />
               <input
                 onChange={handleChangePassword}
@@ -95,6 +96,7 @@ const LoginScreen = () => {
                     Lembrar senha
                   </label>
                 </div>
+                {/* Pode remover esse link se não for implementar recuperação */}
                 <a
                   className="text-sky-600 hover:text-sky-400 duration-200"
                   href="#"
@@ -107,16 +109,6 @@ const LoginScreen = () => {
               </button>
             </form>
           </div>
-        </section>
-        <section className="hidden md:flex w-full flex-1 bg-blue-600 h-screen justify-center gap-8 items-center flex-col p-4">
-          <h1 className="max-w-lg text-white text-2xl text-center lg:text-3xl">
-            Domine as <strong>tecnologias mais buscadas</strong> pelo mercado
-          </h1>
-          <img
-            className="w-3/4 lg:w-full lg:max-w-md"
-            src={techImage}
-            alt="Tecnologias mais usadas do mercado"
-          />
         </section>
       </main>
     </div>

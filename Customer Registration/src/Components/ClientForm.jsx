@@ -1,6 +1,5 @@
 import React from "react";
 
-
 const formatPhone = (value) => {
   return value
     .replace(/\D/g, "")

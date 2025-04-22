@@ -1,223 +1,74 @@
-import React, { useState, useEffect } from "react";
-import { FaEdit, FaSignOutAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import React from "react";
+import {
+  FaEdit,
+  FaSignOutAlt,
+  FaChevronLeft,
+  FaChevronRight,
+} from "react-icons/fa";
 import ClientForm from "../Components/ClientForm";
 import { useNavigate } from "react-router";
-
-const url = "http://localhost:3000/clientes";
+import { useClients } from '../hooks/useClients';
 
 const Home = () => {
-  let navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [clients, setClients] = useState([]);
-  const [filteredClients, setFilteredClients] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editMode, setEditMode] = useState(false);
-  const [currentClientId, setCurrentClientId] = useState(null);
-  const [status, setStatus] = useState('')
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    street: "",
-    number: "",
-    neighborhood: "",
-    reference: "",
-    complement: "",
-    provider: "",
-    observation:"",
-    registers: [],
-  });
+  const navigate = useNavigate();
 
-  const changeColor = (status) =>{
-    console.log(status)
-    if(status === 'completed'){
-      let color = 'border-green-500'
-      return color
-    }
-    if(status === 'waiting'){
-      let color = 'border-blue-500'
-      return color
-    }
-    if(status === 'canceled'){
-      let color = 'border-red-500'
-      return color
-    }
-    return "border-gray-500"
-  }
+  const {
+    currentClients,
+    currentPage,
+    totalPages,
+    searchQuery,
+    formData,
+    loading,
+    error,
+    isModalOpen,
+    editMode,
+    handleSearch,
+    handleNextPage,
+    handlePreviousPage,
+    handleEdit,
+    handleSubmit,
+    setFormData,
+    setEditMode,
+    setIsModalOpen,
+    handleRegisterChange,
+    handleDeleteClientRegister,
+    handleAddRegister,
+  } = useClients();
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const clientsPerPage = 11;
-
-  const fetchClients = async () => {
-    try {
-      setLoading(true);
-      const res = await fetch(url);
-      if (!res.ok) {
-        throw new Error("Erro ao carregar clientes");
-      }
-      const data = await res.json();
-      setClients(data);
-      setFilteredClients(data);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      setError(null);
-
-      const res = await fetch(editMode ? `${url}/${currentClientId}` : url, {
-        method: editMode ? "PUT" : "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!res.ok) {
-        throw new Error("Erro ao enviar os dados");
-      }
-
-      const newClient = await res.json();
-
-      if (editMode) {
-        setClients((prev) =>
-          prev.map((client) =>
-            client.id === currentClientId ? newClient : client
-          )
-        );
-        setFilteredClients((prevClients) =>
-          prevClients.map((client) =>
-            client.id === currentClientId ? newClient : client
-          )
-        );
-      } else {
-        setClients((prev) => [...prev, newClient]);
-        setFilteredClients((prevClients) => [...prevClients, newClient]);
-      }
-
-      setFormData({
-        name: "",
-        phone: "",
-        street: "",
-        number: "",
-        neighborhood: "",
-        reference: "",
-        complement: "",
-        provider: "",
-        observation: "",
-        registers: [],
-      });
-      setIsModalOpen(false);
-      setEditMode(false);
-      setCurrentClientId(null);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleAddRegister = () => {
-    setFormData((prevData) => ({
-      ...prevData,
-      registers: [...prevData.registers, { text: "", value: "" , status: "waiting"}],
-    }));
-  };
-
-  const handleRegisterChange = (index, field, value) => {
-    const updatedRegisters = [...formData.registers];
-    updatedRegisters[index][field] = value;
-    setFormData((prevData) => ({
-      ...prevData,
-      registers: updatedRegisters,
-    }));
-  };
-
-  const handleDeleteRegister = (index) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      registers: prevData.registers.filter((_, i) => i !== index),
-    }));
-  };
-
-  const handleEdit = (client) => {
-    setFormData({
-      ...client,
-      registers: client.registers || [],
-    });
-    setCurrentClientId(client.id);
-    setEditMode(true);
-    setIsModalOpen(true);
-  };
-
-  const handleSearch = (query) => {
-    setSearchQuery(query);
-    const filtered = clients.filter(
-      (client) =>
-        client.name.toLowerCase().includes(query.toLowerCase()) ||
-        client.phone.includes(query) ||
-        client.street.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredClients(filtered);
-    setCurrentPage(1); 
+  const changeColor = (status) => {
+    if (status === "completed") return "border-green-500";
+    if (status === "waiting") return "border-blue-500";
+    if (status === "canceled") return "border-red-500";
+    return "border-gray-500";
   };
 
   const handleLogoff = () => {
     navigate("/");
   };
 
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prevPage) => prevPage + 1);
-    }
-  };
-
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prevPage) => prevPage - 1);
-    }
-  };
-
-  const indexOfLastClient = currentPage * clientsPerPage;
-  const indexOfFirstClient = indexOfLastClient - clientsPerPage;
-  const currentClients = filteredClients.slice(indexOfFirstClient, indexOfLastClient);
-
-
-  const totalPages = Math.ceil(filteredClients.length / clientsPerPage);
-
-  useEffect(() => {
-    fetchClients();
-  }, []);
-
   return (
-    <div className="w-full flex flex-col items-center min-h-screen bg-slate-300">
-      <nav className="w-full bg-slate-200 shadow-xl shadow-gray-500 mb-6 flex justify-center gap-60 items-center p-4">
+    <div className="w-full flex flex-col items-center min-h-screen bg-slate-100">
+      <nav className="w-full bg-slate-50 shadow-md shadow-gray-500 mb-6 flex justify-center gap-60 items-center p-4">
         <div className="flex items-center max-w-4xl justify-between w-full">
-          <h1 className="text-gray-800 text-3xl font-bold">Cadastro de clientes</h1>
+          <h1 className="text-gray-800 text-3xl font-bold">
+            Cadastro de clientes
+          </h1>
           <div className="flex items-center gap-4">
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
               placeholder="Pesquisar cliente"
-            className="w-full max-w-xs border p-2 rounded-lg"
-          />
-          <button
-            onClick={handleLogoff}
-            className="text-black hover:text-gray-800"
-          >
-            <FaSignOutAlt size={24} />
-          </button>
+              className="w-full max-w-xs border p-2 rounded-lg"
+            />
+            <button
+              onClick={handleLogoff}
+              className="text-black hover:text-gray-800"
+            >
+              <FaSignOutAlt size={24} />
+            </button>
           </div>
         </div>
-        
       </nav>
 
       {loading && <p>Carregando...</p>}
@@ -247,7 +98,7 @@ const Home = () => {
                   <td className="border px-4 py-2 text-center">
                     <button
                       className="transition duration-300 px-3 py-1 bg-slate-200 text-black rounded-lg hover:bg-slate-300 flex items-center gap-2"
-                      onClick={() => handleEdit(client)}
+                      onClick={() => handleEdit(client.id)}
                     >
                       <FaEdit />
                       Editar
@@ -257,10 +108,7 @@ const Home = () => {
               ))
             ) : (
               <tr>
-                <td
-                  colSpan="5"
-                  className="text-center text-gray-500 py-4 border"
-                >
+                <td colSpan="5" className="text-center text-gray-500 py-4 border">
                   Nenhum cliente encontrado.
                 </td>
               </tr>
@@ -269,27 +117,25 @@ const Home = () => {
         </table>
       </div>
 
-
       <div className="flex gap-4 mb-6 items-center">
-  <button
-    onClick={handlePreviousPage}
-    disabled={currentPage === 1}
-    className="p-2 bg-[#3B5998] text-white rounded-lg disabled:bg-[#55ACEE]  flex items-center"
-  >
-    <FaChevronLeft size={20} />
-  </button>
-  <span className="text-lg font-medium">
-    Página {currentPage} de {totalPages}
-  </span>
-  <button
-    onClick={handleNextPage}
-    disabled={currentPage === totalPages}
-    className="p-2 bg-[#3B5998] text-white rounded-lg disabled:bg-[#55ACEE] flex items-center"
-  >
-    <FaChevronRight size={20} />
-  </button>
-</div>
-
+        <button
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+          className="p-1 text-white"
+        >
+          <FaChevronLeft className="text-black" size={20} />
+        </button>
+        <span className="text-lg font-medium">
+          Página {currentPage} de {totalPages}
+        </span>
+        <button
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+          className="cursor-pointer"
+        >
+          <FaChevronRight className="text-black" size={20} />
+        </button>
+      </div>
 
       <button
         onClick={() => {
@@ -302,13 +148,13 @@ const Home = () => {
             reference: "",
             complement: "",
             provider: "",
-            observation:"",
+            observation: "",
             registers: [],
           });
           setEditMode(false);
           setIsModalOpen(true);
         }}
-        className="transition duration-500 px-4 py-2 bg-[#3B5998] text-white rounded-lg hover:bg-[#55ACEE]"
+        className="transition duration-500 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-[#55ACEE]"
       >
         Adicionar Cliente
       </button>
@@ -328,7 +174,12 @@ const Home = () => {
                 Registros de Atendimento
               </label>
               {formData.registers.map((register, index) => (
-                <div key={index} className={`mb-4 border p-3 rounded-lg ${changeColor(register.status)}`}>
+                <div
+                  key={index}
+                  className={`mb-4 border p-3 rounded-lg ${changeColor(
+                    register.status
+                  )}`}
+                >
                   <textarea
                     value={register.text}
                     onChange={(e) =>
@@ -338,7 +189,9 @@ const Home = () => {
                     className="w-full p-2 border rounded mb-2"
                     placeholder="Registro de atendimento"
                   />
-                  <label className="block font-medium mb-1">Valor Cobrado (R$)</label>
+                  <label className="block font-medium mb-1">
+                    Valor Cobrado (R$)
+                  </label>
                   <input
                     type="number"
                     value={register.value}
@@ -350,30 +203,50 @@ const Home = () => {
                   />
                   <div className="flex flex-col gap-3">
                     <div className="flex justify-around">
-                      <button onClick={(e) => {e.preventDefault(); handleRegisterChange(index, "status", "completed")}} 
-                        className="mx-auto px-2 py-1 bg-green-600 text-white rounded-lg hover:bg-green-500">Concluído</button>
-                      <button onClick={(e) => {e.preventDefault(); handleRegisterChange(index, "status", "waiting")}} 
-                         className="mx-auto px-2 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-500">Em andamento</button>
-                      <button onClick={(e) => {e.preventDefault(); handleRegisterChange(index, "status", "canceled")}} 
-                         className="mx-auto px-2 py-1 bg-red-600 text-white rounded-lg hover:bg-red-500">Cancelado</button>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleRegisterChange(index, "status", "completed");
+                        }}
+                        className="mx-auto px-2 py-1 bg-green-600 text-white rounded-lg hover:bg-green-500"
+                      >
+                        Concluído
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleRegisterChange(index, "status", "waiting");
+                        }}
+                        className="mx-auto px-2 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-500"
+                      >
+                        Em andamento
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleRegisterChange(index, "status", "canceled");
+                        }}
+                        className="mx-auto px-2 py-1 bg-red-600 text-white rounded-lg hover:bg-red-500"
+                      >
+                        Cancelado
+                      </button>
                     </div>
-                   
+
                     <button
-                    type="button"
-                    onClick={() => handleDeleteRegister(index)}
-                    className="block mx-auto px-2 py-1 bg-red-600 text-white rounded-lg hover:bg-red-500"
-                  >
+                      type="button"
+                      onClick={() => handleDeleteClientRegister(index)}
+                      className="block mx-auto px-2 py-1 bg-red-600 text-white rounded-lg hover:bg-red-500"
+                    >
                       Excluir
                     </button>
                   </div>
-                  
                 </div>
               ))}
 
               <button
                 type="button"
                 onClick={handleAddRegister}
-                className="px-2 py-2 bg-slate-200 text-black rounded-lg hover:bg-slate-300"
+                className="px-2 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-400 duration-500"
               >
                 Adicionar Registro
               </button>
@@ -389,7 +262,7 @@ const Home = () => {
                 disabled={loading}
                 type="submit"
                 value="Salvar"
-                className="transition duration-500 px-2 py-2 bg-slate-200 text-black rounded-lg hover:bg-slate-300"
+                className="transition duration-500 px-2 py-2 text-white bg-green-500 rounded-lg hover:bg-green-400"
               />
             </ClientForm>
           </div>
