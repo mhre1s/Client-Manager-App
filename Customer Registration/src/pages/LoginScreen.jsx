@@ -3,6 +3,7 @@ import userImage from '../assets/user.png';
 import { useNavigate } from "react-router";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
+import settTech from '../assets/Juan.png'
 
 const LoginScreen = () => {
   const navigate = useNavigate();
@@ -52,7 +53,8 @@ const LoginScreen = () => {
   return (
     <div>
       <main className="w-full min-h-screen flex flex-col md:flex-row items-center justify-center mx-auto my-auto">
-        <section className="w-full flex flex-col justify-center items-center flex-1 p-5">
+        <section className="w-full flex flex-col justify-start items-center min-h-screen flex-1 mt-24 gap-10">
+          <img src={settTech} alt="sett tech logo" className="w-72 h-auto"  />
           <div className="w-full max-w-xl flex justify-center items-center gap-4 flex-col">
             <img
               className="w-36 hover:scale-110"
