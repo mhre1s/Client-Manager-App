@@ -30,7 +30,7 @@ const ClientForm = ({ formData, setFormData, handleSubmit, children }) => {
           name="name"
           value={formData.name}
           onChange={handleChange}
-          className="w-full border p-2 rounded-lg"
+          className="w-full border dark:border-slate-600 p-2 rounded-lg"
           required
         />
       </div>
@@ -41,7 +41,7 @@ const ClientForm = ({ formData, setFormData, handleSubmit, children }) => {
           name="phone"
           value={formData.phone}
           onChange={handleChange}
-          className="w-full border p-2 rounded-lg"
+          className="dark:border-slate-600 w-full border p-2 rounded-lg"
           required
           maxLength="15"  
         />
@@ -53,7 +53,7 @@ const ClientForm = ({ formData, setFormData, handleSubmit, children }) => {
           name="street"
           value={formData.street}
           onChange={handleChange}
-          className="w-full border p-2 rounded-lg"
+          className="dark:border-slate-600 w-full border p-2 rounded-lg"
         />
       </div>
       <div>
@@ -63,7 +63,7 @@ const ClientForm = ({ formData, setFormData, handleSubmit, children }) => {
           name="number"
           value={formData.number}
           onChange={handleChange}
-          className="w-full border p-2 rounded-lg"
+          className="dark:border-slate-600 w-full border p-2 rounded-lg"
         />
       </div>
       <div>
@@ -73,7 +73,7 @@ const ClientForm = ({ formData, setFormData, handleSubmit, children }) => {
           name="neighborhood"
           value={formData.neighborhood}
           onChange={handleChange}
-          className="w-full border p-2 rounded-lg"
+          className="dark:border-slate-600 w-full border p-2 rounded-lg"
         />
       </div>
       <div>
@@ -83,7 +83,7 @@ const ClientForm = ({ formData, setFormData, handleSubmit, children }) => {
           name="reference"
           value={formData.reference}
           onChange={handleChange}
-          className="w-full border p-2 rounded-lg"
+          className="dark:border-slate-600 w-full border p-2 rounded-lg"
         />
       </div>
       <div>
@@ -93,7 +93,7 @@ const ClientForm = ({ formData, setFormData, handleSubmit, children }) => {
           name="complement"
           value={formData.complement}
           onChange={handleChange}
-          className="w-full border p-2 rounded-lg"
+          className="dark:border-slate-600 w-full border p-2 rounded-lg"
         />
       </div>
       <div>
@@ -103,13 +103,13 @@ const ClientForm = ({ formData, setFormData, handleSubmit, children }) => {
           name="provider"
           value={formData.provider}
           onChange={handleChange}
-          className="w-full border p-2 rounded-lg"
+          className="dark:border-slate-600 w-full border p-2 rounded-lg"
         />
       </div>
       <div>
         <label htmlFor="observation" className="block font-medium">Observações</label>
         <textarea 
-          className="w-full p-2 border rounded-sm mb-2" 
+          className="dark:border-slate-600 w-full p-2 border rounded-sm mb-2" 
           rows="4" 
           name="observation" 
           id="observation" 
