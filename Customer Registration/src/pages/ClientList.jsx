@@ -48,9 +48,10 @@ const Home = () => {
 
   return (
     <div className="w-full flex flex-col items-center min-h-screen bg-slate-100">
-      <nav className="w-full bg-slate-50 shadow-md shadow-gray-500 mb-6 flex justify-center gap-60 items-center p-4">
+      <nav className="w-full bg-slate-50 shadow-md shadow-gray-300 mb-6 
+      flex justify-center gap-60 items-center p-4 border-b-1 border-blue-300">
         <div className="flex items-center max-w-4xl justify-between w-full">
-          <h1 className="text-gray-800 text-3xl font-bold">
+          <h1 className=" text-slate-900 text-2xl font-bold">
             Cadastro de clientes
           </h1>
           <div className="flex items-center gap-4">
@@ -59,7 +60,7 @@ const Home = () => {
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
               placeholder="Pesquisar cliente"
-              className="w-full max-w-xs border p-2 rounded-lg"
+              className="w-full max-w-xs border p-2 rounded-lg focus:outline-none"
             />
             <button
               onClick={handleLogoff}
@@ -75,7 +76,7 @@ const Home = () => {
       {error && <p className="text-red-500">{error}</p>}
 
       <div className="w-full max-w-4xl bg-white shadow-md rounded-lg p-4 mb-6 overflow-x-auto">
-        <table className="w-full table-auto border-collapse">
+        <table className="w-full table-auto border-separate">
           <thead>
             <tr className="bg-gray-200 text-left">
               <th className="border px-4 py-2">Nome</th>
