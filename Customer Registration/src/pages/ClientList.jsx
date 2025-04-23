@@ -71,7 +71,7 @@ const Home = () => {
       flex justify-center gap-60 items-center p-4 border-b-1 border-b-slate-300 
       dark:border-b-slate-800">
         <div className="flex items-center max-w-4xl justify-between w-full">
-          <h1 className=" text-slate-950 text-2xl font-bold dark:text-gray-200">
+          <h1 className=" text-slate-950 text-2xl hidden sm:block font-bold dark:text-gray-200">
             Cadastro de clientes
           </h1>
           <div className="flex items-center gap-10">
