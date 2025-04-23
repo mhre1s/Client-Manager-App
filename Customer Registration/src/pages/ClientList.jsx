@@ -48,8 +48,8 @@ const Home = () => {
 
   return (
     <div className="w-full flex flex-col items-center min-h-screen bg-slate-100">
-      <nav className="w-full bg-slate-50 shadow-md shadow-gray-300 mb-6 
-      flex justify-center gap-60 items-center p-4 border-b-1 border-blue-300">
+      <nav className="w-full bg-slate-50 mb-6 
+      flex justify-center gap-60 items-center p-4 border-b-1 border-b-slate-300">
         <div className="flex items-center max-w-4xl justify-between w-full">
           <h1 className=" text-slate-900 text-2xl font-bold">
             Cadastro de clientes
@@ -60,11 +60,11 @@ const Home = () => {
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
               placeholder="Pesquisar cliente"
-              className="w-full max-w-xs border p-2 rounded-lg focus:outline-none"
+              className="w-full max-w-xs border p-2 rounded-lg focus:outline-hidden"
             />
             <button
               onClick={handleLogoff}
-              className="text-black hover:text-gray-800"
+              className="text-black hover:text-gray-700 cursor-pointer"
             >
               <FaSignOutAlt size={24} />
             </button>
@@ -98,7 +98,8 @@ const Home = () => {
                   <td className="border px-4 py-2">{client.neighborhood}</td>
                   <td className="border px-4 py-2 text-center">
                     <button
-                      className="transition duration-300 px-3 py-1 bg-slate-200 text-black rounded-lg hover:bg-slate-300 flex items-center gap-2"
+                      className="transition duration-300 px-3 py-1 bg-slate-200 text-black rounded-lg 
+                      cursor-pointer hover:bg-slate-300 flex items-center gap-2"
                       onClick={() => handleEdit(client.id)}
                     >
                       <FaEdit />
@@ -122,7 +123,7 @@ const Home = () => {
         <button
           onClick={handlePreviousPage}
           disabled={currentPage === 1}
-          className="p-1 text-white"
+          className="p-1 text-white cursor-pointer"
         >
           <FaChevronLeft className="text-black" size={20} />
         </button>
@@ -132,7 +133,7 @@ const Home = () => {
         <button
           onClick={handleNextPage}
           disabled={currentPage === totalPages}
-          className="cursor-pointer"
+          className="cursor-pointer p-1 text-white"
         >
           <FaChevronRight className="text-black" size={20} />
         </button>
@@ -155,13 +156,13 @@ const Home = () => {
           setEditMode(false);
           setIsModalOpen(true);
         }}
-        className="transition duration-500 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-[#55ACEE]"
+        className="cursor-pointer transition duration-500 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-[#55ACEE]"
       >
         Adicionar Cliente
       </button>
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0 backdrop-blur-md bg-black/70 flex justify-center items-center z-50">
           <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-xl max-h-[80vh] overflow-y-auto">
             <h2 className="text-2xl font-bold mb-4">
               {editMode ? "Editar Cliente" : "Cadastrar Cliente"}
@@ -177,7 +178,7 @@ const Home = () => {
               {formData.registers.map((register, index) => (
                 <div
                   key={index}
-                  className={`mb-4 border p-3 rounded-lg ${changeColor(
+                  className={`mb-4 min-w-full border p-3 rounded-lg ${changeColor(
                     register.status
                   )}`}
                 >
@@ -187,7 +188,7 @@ const Home = () => {
                       handleRegisterChange(index, "text", e.target.value)
                     }
                     rows="3"
-                    className="w-full p-2 border rounded mb-2"
+                    className="w-full p-2 border rounded-sm mb-2"
                     placeholder="Registro de atendimento"
                   />
                   <label className="block font-medium mb-1">
@@ -199,17 +200,17 @@ const Home = () => {
                     onChange={(e) =>
                       handleRegisterChange(index, "value", e.target.value)
                     }
-                    className="w-full p-2 border rounded mb-2"
+                    className="w-full p-2 border rounded-sm mb-2"
                     placeholder="Digite o valor cobrado"
                   />
-                  <div className="flex flex-col gap-3">
-                    <div className="flex justify-around">
+                  <div className="flex flex-col gap-8">
+                    <div className="flex justify-around flex-col gap-5 sm:flex-row">
                       <button
                         onClick={(e) => {
                           e.preventDefault();
                           handleRegisterChange(index, "status", "completed");
                         }}
-                        className="mx-auto px-2 py-1 bg-green-600 text-white rounded-lg hover:bg-green-500"
+                        className="cursor-pointer mx-auto px-2 py-1 bg-green-600 text-white rounded-lg hover:bg-green-500 w-36"
                       >
                         Concluído
                       </button>
@@ -218,7 +219,7 @@ const Home = () => {
                           e.preventDefault();
                           handleRegisterChange(index, "status", "waiting");
                         }}
-                        className="mx-auto px-2 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-500"
+                        className="cursor-pointer mx-auto px-2 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-500 w-36"
                       >
                         Em andamento
                       </button>
@@ -227,7 +228,7 @@ const Home = () => {
                           e.preventDefault();
                           handleRegisterChange(index, "status", "canceled");
                         }}
-                        className="mx-auto px-2 py-1 bg-red-600 text-white rounded-lg hover:bg-red-500"
+                        className="cursor-pointer mx-auto px-2 py-1 bg-red-600 text-white rounded-lg hover:bg-red-500 w-36"
                       >
                         Cancelado
                       </button>
@@ -236,18 +237,18 @@ const Home = () => {
                     <button
                       type="button"
                       onClick={() => handleDeleteClientRegister(index)}
-                      className="block mx-auto px-2 py-1 bg-red-600 text-white rounded-lg hover:bg-red-500"
+                      className="cursor-pointer block mx-auto px-2 py-1 bg-red-600 text-white rounded-lg hover:bg-red-500"
                     >
                       Excluir
                     </button>
                   </div>
                 </div>
               ))}
-
-              <button
+              <div className="flex flex-col gap-3">
+                <button
                 type="button"
                 onClick={handleAddRegister}
-                className="px-2 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-400 duration-500"
+                className="cursor-pointer px-2 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-400 duration-500"
               >
                 Adicionar Registro
               </button>
@@ -255,7 +256,7 @@ const Home = () => {
               <button
                 onClick={() => setIsModalOpen(false)}
                 type="button"
-                className="transition duration-500 px-2 py-2 bg-red-600 text-white rounded-lg hover:bg-red-500"
+                className="cursor-pointer transition duration-500 px-2 py-2 bg-red-600 text-white rounded-lg hover:bg-red-500"
               >
                 Cancelar
               </button>
@@ -263,8 +264,10 @@ const Home = () => {
                 disabled={loading}
                 type="submit"
                 value="Salvar"
-                className="transition duration-500 px-2 py-2 text-white bg-green-500 rounded-lg hover:bg-green-400"
+                className="cursor-pointer transition duration-500 px-2 py-2 text-white bg-green-500 rounded-lg hover:bg-green-400"
               />
+              </div>
+              
             </ClientForm>
           </div>
         </div>
