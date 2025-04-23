@@ -227,6 +227,18 @@ const Home = () => {
                     className="w-full p-2 border rounded-sm mb-2"
                     placeholder="Digite o valor cobrado"
                   />
+                  <label className="block font-medium mb-1">
+                    Data do atendimento
+                  </label>
+                  <input
+                    type="date"
+                    value={register.date}
+                    onChange={(e) =>
+                      handleRegisterChange(index, "date", e.target.value)
+                    }
+                    className="w-full p-2 border rounded-sm mb-2"
+                    placeholder="Digite o valor cobrado"
+                  />
                   <div className="flex flex-col gap-8">
                     <div className="flex justify-around flex-col gap-5 sm:flex-row">
                       <button
