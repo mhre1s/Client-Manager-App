@@ -69,7 +69,7 @@ const LoginScreen = () => {
               <input
                 onChange={handleChangeEmail}
                 value={email}
-                className="w-full p-2 rounded-lg outline-none focus:bg-white bg-gray-100 shadow-md shadow-slate-800"
+                className="w-full p-2 rounded-lg outline-hidden focus:bg-white bg-gray-100 shadow-md shadow-slate-800"
                 type="email"
                 name="email"
                 id="email"
@@ -78,7 +78,7 @@ const LoginScreen = () => {
               <input
                 onChange={handleChangePassword}
                 value={password}
-                className="w-full p-2 rounded-lg outline-none focus:bg-white bg-gray-100 shadow-md shadow-slate-800"
+                className="w-full p-2 rounded-lg outline-hidden focus:bg-white bg-gray-100 shadow-md shadow-slate-800"
                 type="password"
                 name="password"
                 id="password"

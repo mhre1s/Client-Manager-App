@@ -186,7 +186,7 @@ const Home = () => {
                       handleRegisterChange(index, "text", e.target.value)
                     }
                     rows="3"
-                    className="w-full p-2 border rounded mb-2"
+                    className="w-full p-2 border rounded-sm mb-2"
                     placeholder="Registro de atendimento"
                   />
                   <label className="block font-medium mb-1">
@@ -198,7 +198,7 @@ const Home = () => {
                     onChange={(e) =>
                       handleRegisterChange(index, "value", e.target.value)
                     }
-                    className="w-full p-2 border rounded mb-2"
+                    className="w-full p-2 border rounded-sm mb-2"
                     placeholder="Digite o valor cobrado"
                   />
                   <div className="flex flex-col gap-3">

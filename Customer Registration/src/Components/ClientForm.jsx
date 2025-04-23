@@ -109,7 +109,7 @@ const ClientForm = ({ formData, setFormData, handleSubmit, children }) => {
       <div>
         <label htmlFor="observation" className="block font-medium">Observações</label>
         <textarea 
-          className="w-full p-2 border rounded mb-2" 
+          className="w-full p-2 border rounded-sm mb-2" 
           rows="4" 
           name="observation" 
           id="observation" 
