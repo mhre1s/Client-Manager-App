@@ -70,7 +70,7 @@ const Home = () => {
       <nav className="w-full bg-slate-50 mb-6  dark:bg-slate-950
       flex justify-center gap-60 items-center p-4 border-b-1 border-b-slate-300 
       dark:border-b-slate-800">
-        <div className="flex items-center max-w-4xl justify-between w-full">
+        <div className="flex items-center max-w-4xl sm:justify-between justify-center w-full">
           <h1 className=" text-slate-950 text-2xl hidden sm:block font-bold dark:text-gray-200">
             Cadastro de clientes
           </h1>
