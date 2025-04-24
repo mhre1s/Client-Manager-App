@@ -12,7 +12,7 @@ const Navbar = ({ searchQuery, handleSearch, theme, changeTheme }) => {
   };
 
   return (
-    <nav className="w-full bg-slate-50 mb-6 dark:bg-slate-950 flex justify-around gap-60 items-center p-4 border-b-1 border-b-slate-300 dark:border-b-slate-800">
+    <nav className="w-full bg-slate-50 mb-6 dark:bg-slate-950 flex sm:justify-around gap-3 sm:gap-4 items-center p-4 border-b-1 border-b-slate-300 dark:border-b-slate-800">
         <button className="rounded-md hover:bg-gray-200 duration-500 p-1 cursor-pointer dark:hover:bg-gray-800">
             <Menu/>
         </button>
@@ -20,7 +20,7 @@ const Navbar = ({ searchQuery, handleSearch, theme, changeTheme }) => {
             <h1 className="text-slate-950 text-2xl hidden sm:block font-bold dark:text-gray-200">
             Cadastro de clientes
             </h1>
-            <div className="flex items-center gap-10">
+            <div className="flex items-center sm:gap-10 gap-4">
             <input
                 type="text"
                 value={searchQuery}
