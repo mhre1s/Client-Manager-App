@@ -3,17 +3,41 @@ import { RiMoonClearFill, RiSunFill } from "react-icons/ri";
 import { useNavigate } from "react-router";
 import { Menu } from "lucide-react"
 import { useState } from "react";
+import { Link } from "react-router";
+import { X } from 'lucide-react';
 
 const Navbar = ({ searchQuery, handleSearch, theme, changeTheme }) => {
   const navigate = useNavigate();
-  const [sideBar, setSideBar] = useState('false')
+  const [sideBar, setSideBar] = useState(false)
   const handleLogoff = () => {
     navigate("/");
   };
 
+  const handleSidebar = () => {
+    sideBar ? setSideBar(false) : setSideBar(true)
+  }
+
   return (
-    <nav className="w-full bg-slate-50 mb-6 dark:bg-slate-950 flex sm:justify-around gap-3 sm:gap-4 items-center p-4 border-b-1 border-b-slate-300 dark:border-b-slate-800">
-        <button className="rounded-md hover:bg-gray-200 duration-500 p-1 cursor-pointer dark:hover:bg-gray-800">
+    <nav className="w-full bg-slate-50 mb-6 dark:bg-slate-950 flex 
+    sm:justify-around gap-3 sm:gap-4 items-center p-4 border-b-1 border-b-slate-300 
+    dark:border-b-slate-800">
+        <aside className={`sm:w-72 min-h-screen absolute z-50 top-0 left-0 dark:bg-gray-900 
+            bg-gray-200 w-full border-1 border-gray-300 dark:border-gray-700 shadow-black 
+            shadow-lg
+             ${sideBar ? 'block' : 'hidden'}`}>
+            <div className="w-full flex justify-end text-red-500">
+                <button onClick={handleSidebar} className="cursor-pointer"><X/></button>
+            </div>
+            <div className="flex justify-center items-center h-56">
+                <ol className="flex flex-col gap-5 text-xl text-center">
+                    <li><Link className="border-b-1 p-1 border-black dark:border-amber-50" to={'/client-list'}>Clientes</Link></li>
+                    <li><Link className="border-b-1 p-1 border-black dark:border-amber-50" to={'/scheduling'}>Agendamentos</Link></li>
+                </ol>
+            </div>
+        
+        </aside>
+        <button onClick={handleSidebar} className="rounded-md hover:bg-gray-200 duration-500 p-1 
+        cursor-pointer dark:hover:bg-gray-800">
             <Menu/>
         </button>
         <div className="flex items-center max-w-4xl sm:justify-between justify-center w-full">
@@ -42,12 +66,12 @@ const Navbar = ({ searchQuery, handleSearch, theme, changeTheme }) => {
                 <RiMoonClearFill />
                 </button>
             </div>
-            <button
+                <button
                 onClick={handleLogoff}
                 className="text-black hover:text-gray-700 cursor-pointer"
             >
                 <FaSignOutAlt className="dark:text-slate-700 hover:dark:text-slate-500" size={24} />
-            </button>
+                </button>
             </div>
         </div>
     </nav>
