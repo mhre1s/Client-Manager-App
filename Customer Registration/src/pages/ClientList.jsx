@@ -9,6 +9,7 @@ import ClientForm from "../Components/ClientForm";
 import { useNavigate } from "react-router";
 import { useClients } from '../hooks/useClients';
 import { RiMoonClearFill, RiSunFill } from 'react-icons/ri';
+import Navbar from "../Components/Navbar";
 
 const Home = () => {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
@@ -67,39 +68,11 @@ const Home = () => {
 
   return (
     <div className="w-full flex flex-col items-center min-h-screen dark:bg-gray-950  dark:text-white bg-slate-100">
-      <nav className="w-full bg-slate-50 mb-6  dark:bg-slate-950
-      flex justify-center gap-60 items-center p-4 border-b-1 border-b-slate-300 
-      dark:border-b-slate-800">
-        <div className="flex items-center max-w-4xl sm:justify-between justify-center w-full">
-          <h1 className=" text-slate-950 text-2xl hidden sm:block font-bold dark:text-gray-200">
-            Cadastro de clientes
-          </h1>
-          <div className="flex items-center gap-10">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => handleSearch(e.target.value)}
-              placeholder="Pesquisar cliente"
-              className="w-full max-w-xs border dark:border-slate-700 p-2 rounded-lg focus:outline-hidden"
-            />
-            <div className="flex rounded-2xl bg-slate-300 dark:bg-slate-700 p-1 gap-1">
-              <button onClick={changeTheme} className={`p-1 ${theme === 'light' ? 'rounded-3xl bg-white dark:bg-slate-400' : ''}`}><RiSunFill/></button>
-              <button onClick={changeTheme} className={`p-1 ${theme === 'dark' ? 'rounded-3xl bg-white dark:bg-slate-400' : ''}`}><RiMoonClearFill/></button>
-            </div>
-            <button
-              onClick={handleLogoff}
-              className="text-black hover:text-gray-700 cursor-pointer"
-            >
-              <FaSignOutAlt className="dark:text-slate-700 hover:dark:text-slate-500" size={24} />
-            </button>
-          </div>
-        </div>
-      </nav>
-
+      <Navbar searchQuery={searchQuery} handleSearch={handleSearch} theme={theme} changeTheme={changeTheme}/>
       {loading && <p>Carregando...</p>}
       {error && <p className="text-red-500">{error}</p>}
 
-      <div className="w-full max-w-4xl bg-white dark:bg-slate-700 shadow-md rounded-lg p-4 mb-6 overflow-x-auto">
+      <div className="w-full max-w-4xl bg-white dark:bg-slate-900 shadow-md rounded-lg p-4 mb-6 overflow-x-auto">
         <table className="w-full table-auto border-separate">
           <thead>
             <tr className="bg-gray-200 dark:bg-slate-800 text-left">
@@ -113,7 +86,7 @@ const Home = () => {
           <tbody>
             {currentClients.length > 0 ? (
               currentClients.map((client) => (
-                <tr key={client.id} className="hover:bg-gray-100 hover:dark:bg-slate-600">
+                <tr key={client.id} className="hover:bg-gray-100 hover:dark:bg-slate-800">
                   <td className="border px-4 py-2 dark:border-slate-500">{client.name}</td>
                   <td className="border px-4 py-2 dark:border-slate-500">{client.phone}</td>
                   <td className="border px-4 py-2 dark:border-slate-500">
@@ -122,8 +95,8 @@ const Home = () => {
                   <td className="border px-4 py-2 dark:border-slate-500">{client.neighborhood}</td>
                   <td className="border px-4 py-2 dark:border-slate-500 text-center">
                     <button
-                      className="transition duration-300 px-3 py-1 bg-slate-200 text-black rounded-lg 
-                      cursor-pointer hover:bg-slate-300 flex items-center dark:bg-slate-400 gap-2"
+                      className="transition duration-300 px-3 py-1 dark:text-white bg-slate-200 text-black rounded-lg 
+                      cursor-pointer hover:bg-slate-500 flex items-center dark:bg-slate-700 gap-2"
                       onClick={() => handleEdit(client.id)}
                     >
                       <FaEdit />
