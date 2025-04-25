@@ -12,26 +12,8 @@ import { RiMoonClearFill, RiSunFill } from 'react-icons/ri';
 import Navbar from "../Components/Navbar";
 
 const Home = () => {
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
-  useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark')
-      document.documentElement.classList.remove('light')
-    } else {
-      document.documentElement.classList.remove('dark')
-      document.documentElement.classList.add('light')
-    }
-    localStorage.setItem('theme', theme)
-  }, [theme])
-  
-
-  const changeTheme = (e) => {
-    e.preventDefault()
-    setTheme(theme === 'light' ? 'dark' : 'light')
-  }
 
   const navigate = useNavigate();
-
   const {
     currentClients,
     currentPage,
@@ -67,12 +49,23 @@ const Home = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center min-h-screen dark:bg-gray-950  dark:text-white bg-slate-100">
-      <Navbar searchQuery={searchQuery} handleSearch={handleSearch} theme={theme} changeTheme={changeTheme}/>
+    <div className="w-full flex flex-col gap-3 items-center min-h-screen dark:bg-gray-950  dark:text-white bg-slate-100">
+      <Navbar searchQuery={searchQuery} handleSearch={handleSearch}/>
       {loading && <p>Carregando...</p>}
       {error && <p className="text-red-500">{error}</p>}
-
-      <div className="w-full max-w-4xl bg-white dark:bg-slate-900 shadow-md rounded-lg p-4 mb-6 overflow-x-auto">
+      <div className="w-full max-w-4xl flex justify-center lg:justify-end p-3">
+      <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => handleSearch(e.target.value)}
+                placeholder="Pesquisar cliente"
+                className="w-full max-w-xs border border-slate-300 dark:border-slate-700 p-2 rounded-lg focus:outline-hidden"
+      />
+      </div>
+      
+      <div className="flex flex-col gap-2 w-full max-w-4xl bg-white 
+      dark:bg-slate-900 shadow-md rounded-lg p-4 mb-6 overflow-x-auto">
+      
         <table className="w-full table-auto border-separate">
           <thead>
             <tr className="bg-gray-200 dark:bg-slate-800 text-left">

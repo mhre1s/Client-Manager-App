@@ -2,11 +2,28 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { RiMoonClearFill, RiSunFill } from "react-icons/ri";
 import { useNavigate } from "react-router";
 import { Menu } from "lucide-react"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import { X } from 'lucide-react';
 
-const Navbar = ({ searchQuery, handleSearch, theme, changeTheme }) => {
+const Navbar = ({ searchQuery, handleSearch}) => {
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
+    useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark')
+      document.documentElement.classList.remove('light')
+    } else {
+      document.documentElement.classList.remove('dark')
+      document.documentElement.classList.add('light')
+    }
+    localStorage.setItem('theme', theme)
+  }, [theme])
+
+  const changeTheme = (e) => {
+    e.preventDefault()
+    setTheme(theme === 'light' ? 'dark' : 'light')
+  }
+  
   const navigate = useNavigate();
   const [sideBar, setSideBar] = useState(false)
   const handleLogoff = () => {
@@ -26,7 +43,7 @@ const Navbar = ({ searchQuery, handleSearch, theme, changeTheme }) => {
             shadow-lg
              ${sideBar ? 'block' : 'hidden'}`}>
             <div className="w-full flex justify-end text-red-500">
-                <button onClick={handleSidebar} className="cursor-pointer"><X/></button>
+                <button onClick={handleSidebar} className="cursor-pointer p-2"><X/></button>
             </div>
             <div className="flex justify-center items-center h-56">
                 <ol className="flex flex-col gap-5 text-xl text-center">
@@ -45,13 +62,7 @@ const Navbar = ({ searchQuery, handleSearch, theme, changeTheme }) => {
             Cadastro de clientes
             </h1>
             <div className="flex items-center sm:gap-10 gap-4">
-            <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => handleSearch(e.target.value)}
-                placeholder="Pesquisar cliente"
-                className="w-full max-w-xs border dark:border-slate-700 p-2 rounded-lg focus:outline-hidden"
-            />
+            
             <div className="flex rounded-2xl bg-slate-300 dark:bg-slate-700 p-1 gap-1">
                 <button
                 onClick={changeTheme}
