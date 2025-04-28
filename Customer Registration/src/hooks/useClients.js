@@ -22,7 +22,7 @@ export const useClients = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentClientId, setCurrentClientId] = useState(null);
 
-  const clientsPerPage = 11;
+  const clientsPerPage = 8;
 
   const indexOfLastClient = currentPage * clientsPerPage;
   const indexOfFirstClient = indexOfLastClient - clientsPerPage;

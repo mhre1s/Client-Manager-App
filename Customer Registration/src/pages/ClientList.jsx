@@ -53,7 +53,7 @@ const Home = () => {
       <Navbar searchQuery={searchQuery} handleSearch={handleSearch}/>
       {loading && <p>Carregando...</p>}
       {error && <p className="text-red-500">{error}</p>}
-      <div className="w-full max-w-4xl flex justify-center lg:justify-end p-3">
+      <div className="w-full max-w-4xl flex justify-center lg:justify-end p-1">
       <input
                 type="text"
                 value={searchQuery}
@@ -109,7 +109,7 @@ const Home = () => {
         </table>
       </div>
 
-      <div className="flex gap-4 mb-6 items-center">
+      <div className="flex gap-4 mb-2 items-center">
         <button
           onClick={handlePreviousPage}
           disabled={currentPage === 1}
@@ -146,7 +146,7 @@ const Home = () => {
           setEditMode(false);
           setIsModalOpen(true);
         }}
-        className="cursor-pointer transition duration-500 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 dark:hover:bg-blue-700"
+        className="mb-5 cursor-pointer transition duration-500 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 dark:hover:bg-blue-700"
       >
         Adicionar Cliente
       </button>

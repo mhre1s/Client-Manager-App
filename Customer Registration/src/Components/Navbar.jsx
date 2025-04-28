@@ -35,7 +35,7 @@ const Navbar = ({ searchQuery, handleSearch}) => {
   }
 
   return (
-    <nav className="w-full bg-slate-50 mb-6 dark:bg-slate-950 flex 
+    <nav className="w-full bg-slate-50 mb-3 dark:bg-slate-950 flex 
     sm:justify-around gap-3 sm:gap-4 items-center p-4 border-b-1 border-b-slate-300 
     dark:border-b-slate-800">
         <aside className={`sm:w-72 min-h-screen absolute z-50 top-0 left-0 dark:bg-gray-900 
