@@ -4,9 +4,9 @@ import { useClients } from '../hooks/useClients';
 import { useState } from 'react';
 
 const Scheduling = () => {
-
+  
   const {
-    currentClients
+    clients
   } = useClients();
 
   const [date, setDate] = useState('')
@@ -26,29 +26,46 @@ const Scheduling = () => {
         </div>
       </div>
       <hr className="border-1 border-slate-200 dark:border-slate-900 w-full my-2" />
-
-      <ul className='w-full flex justify-center mt-4'>
-        {currentClients.filter(client => client.registers.some(register => register.status === "waiting" && register.date === date))
+      <ul className='w-full flex justify-center gap-4 mt-4'>
+        {clients.filter(client => client.registers.some(register => register.status === "waiting" && register.date === date))
         .map(client =>{
-          const waiting = client.registers.find(register => register.status === 'waiting')
+          const waiting = client.registers.find(register => register.status === 'waiting' && register.date === date)
         return(
-          <li>
-            <div className='flex flex-col p-2 rounded-lg border-1 shadow-md shadow-black bg-slate-200 border-slate-400 dark:bg-sky-800 dark:border-sky-600 max-w-90'>
+          <li className='hover:brightness-125 duration-500'>
+            <div className='flex flex-col w-70 p-2 rounded-lg border-1 shadow-md shadow-black bg-slate-200
+             border-slate-400 dark:bg-sky-800 dark:border-sky-600 h-62 max-w-90 
+             overflow-y-auto  scrollbar-minimal pr-2 overflow-hidden'>
               <div className='flex flex-col gap-1 text-center'>
-                <h3>Nome: {client.name}</h3>
-                <hr className='border-slate-400' />
-                <p className='mt-3'>Endereço:</p>
-                <p>{client.street}, {client.number}, {client.neighborhood}</p>
-                <p>{client.reference}</p>
-                <hr className='border-slate-400' />
-                <div className='mt-3'>
-                
-                  <p>Serviço:</p>
-                  <p>{waiting?.text}</p>
+                <div>
+                  <div>
+                    <p>Nome:</p>
+                    <p>{client.name}</p>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <p></p>
+                
+                <hr className='border-slate-400' />
+                <div className='my-1'>
+                  <p>Telefone:</p>
+                  <p>{client.phone}</p>
+                </div>
+                <hr className='border-slate-400' />
+                <div>
+                  <div>
+                    <p>Endereço:</p>
+                    <p>{client.street}, {client.number}, {client.neighborhood}</p>
+                    <p>{client.reference}</p>
+                  </div>
+                </div>
+                
+                
+                <hr className='border-slate-400' />
+                <div>
+                  <div>
+                    <p>Serviço:</p>
+                    <p>{waiting?.text}</p>
+                  </div>
+                </div>
+                
               </div>
             </div>
           </li>)})

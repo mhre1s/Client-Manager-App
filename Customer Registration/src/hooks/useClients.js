@@ -49,7 +49,8 @@ export const useClients = () => {
         id: doc.id,
         ...doc.data(),
       }));
-      setClients(clientsData);
+      const ordenedClients = clientsData.sort((a,b) => a.name.localeCompare(b.name))
+      setClients(ordenedClients);
       setFilteredClients(clientsData);
       setLoading(false);
     } catch (err) {
