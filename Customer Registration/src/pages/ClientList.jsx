@@ -87,7 +87,7 @@ const Home = () => {
                     {client.street}, {client.number}
                   </td>
                   <td className="border px-4 py-2 dark:border-slate-500">{client.neighborhood}</td>
-                  <td className="border px-4 py-2 dark:border-slate-500 flex justify-center text-center">
+                  <td className="border px-4 py-2 dark:border-slate-500 text-center lg:flex lg:justify-center">
                     <button
                       className="transition duration-300 px-3 py-1 dark:text-white bg-slate-200 text-black rounded-lg 
                       cursor-pointer hover:bg-slate-500 flex items-center dark:bg-slate-700 gap-2"
