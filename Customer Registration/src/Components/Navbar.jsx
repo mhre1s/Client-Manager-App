@@ -57,7 +57,7 @@ const Navbar = ({ searchQuery, handleSearch}) => {
         cursor-pointer dark:hover:bg-gray-800">
             <Menu/>
         </button>
-        <div className="flex items-center max-w-4xl sm:justify-between justify-center w-full">
+        <div className="flex items-center max-w-4xl sm:justify-between justify-end w-full">
             <h1 className="text-slate-950 text-2xl hidden sm:block font-bold dark:text-gray-200">
             Cadastro de clientes
             </h1>
