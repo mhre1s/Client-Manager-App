@@ -53,18 +53,19 @@ const Home = () => {
       <Navbar searchQuery={searchQuery} handleSearch={handleSearch}/>
       {loading && <p>Carregando...</p>}
       {error && <p className="text-red-500">{error}</p>}
-      <div className="w-full max-w-4xl flex justify-center lg:justify-end p-1">
-      <input
+      <div className="sm:px-10 w-full">
+      <div className="flex justify-center w-full sm:justify-end p-1">
+        <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => handleSearch(e.target.value)}
                 placeholder="Pesquisar cliente"
                 className="w-full max-w-xs border border-slate-300 dark:border-slate-700 p-2 rounded-lg focus:outline-hidden"
-      />
+        />
       </div>
       
-      <div className="flex flex-col gap-2 w-full max-w-4xl bg-white 
-      dark:bg-slate-900 shadow-md rounded-lg p-4 mb-6 overflow-x-auto">
+      <div className="flex flex-col gap-2 w-full bg-white 
+      dark:bg-slate-900 shadow-md rounded-lg p-4 mb-6 mx-auto overflow-x-auto">
       
         <table className="w-full table-auto border-separate">
           <thead>
@@ -76,7 +77,7 @@ const Home = () => {
               <th className="border px-4 py-2 dark:border-slate-500 text-center">Ações</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="text-sm">
             {currentClients.length > 0 ? (
               currentClients.map((client) => (
                 <tr key={client.id} className="hover:bg-gray-100 hover:dark:bg-slate-800">
@@ -86,7 +87,7 @@ const Home = () => {
                     {client.street}, {client.number}
                   </td>
                   <td className="border px-4 py-2 dark:border-slate-500">{client.neighborhood}</td>
-                  <td className="border px-4 py-2 dark:border-slate-500 text-center">
+                  <td className="border px-4 py-2 dark:border-slate-500 flex justify-center text-center">
                     <button
                       className="transition duration-300 px-3 py-1 dark:text-white bg-slate-200 text-black rounded-lg 
                       cursor-pointer hover:bg-slate-500 flex items-center dark:bg-slate-700 gap-2"
@@ -108,6 +109,8 @@ const Home = () => {
           </tbody>
         </table>
       </div>
+      </div>
+      
 
       <div className="flex gap-4 mb-2 items-center">
         <button
