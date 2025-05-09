@@ -7,29 +7,17 @@ import ClientList from './pages/ClientList.jsx'
 import LoginScreen from './pages/LoginScreen.jsx'
 import Scheduling from './pages/Scheduling.jsx'
 import PrivateRoute from './route/PrivateRoute.jsx'
+import Registers from './pages/Registers.jsx'
 
 
 createRoot(document.getElementById('root')).render(
  <StrictMode>
     <BrowserRouter>
-      <Routes>  
-        <Route path='/' element={<LoginScreen />} />      
-        <Route
-          path='/client-list'
-          element={
-            <PrivateRoute>
-              <ClientList />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path='/scheduling'
-          element={
-            <PrivateRoute>
-              <Scheduling />
-            </PrivateRoute>
-          }
-        />
+      <Routes>
+        <Route path='/' element={<LoginScreen/>}/>
+        <Route path='/client-list' element={<PrivateRoute><ClientList/></PrivateRoute>}/>
+        <Route path='/scheduling' element ={<PrivateRoute><Scheduling/></PrivateRoute>}/>
+        <Route path='/client-list/:id' element = {<PrivateRoute><Registers/></PrivateRoute>}/>
       </Routes>
     </BrowserRouter>
   </StrictMode>

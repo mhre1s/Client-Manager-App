@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import {
   FaEdit,
-  FaSignOutAlt,
   FaChevronLeft,
   FaChevronRight,
 } from "react-icons/fa";
 import ClientForm from "../Components/ClientForm";
 import { useNavigate } from "react-router";
 import { useClients } from '../hooks/useClients';
-import { RiMoonClearFill, RiSunFill } from 'react-icons/ri';
 import Navbar from "../Components/Navbar";
+import { X } from 'lucide-react';
+import { Eye } from 'lucide-react'
+import { Link } from "react-router";
 
 const Home = () => {
 
-  const navigate = useNavigate();
   const {
     currentClients,
     currentPage,
@@ -44,13 +44,10 @@ const Home = () => {
     return "border-gray-500";
   };
 
-  const handleLogoff = () => {
-    navigate("/");
-  };
 
   return (
     <div className="w-full flex flex-col gap-3 items-center min-h-screen dark:bg-gray-950  dark:text-white bg-slate-100">
-      <Navbar searchQuery={searchQuery} handleSearch={handleSearch}/>
+      <Navbar/>
       {loading && <p>Carregando...</p>}
       {error && <p className="text-red-500">{error}</p>}
       <div className="sm:px-10 w-full">
@@ -87,15 +84,25 @@ const Home = () => {
                     {client.street}, {client.number}
                   </td>
                   <td className="border px-4 py-2 dark:border-slate-500">{client.neighborhood}</td>
-                  <td className="border px-4 py-2 dark:border-slate-500 text-center lg:flex lg:justify-center">
-                    <button
-                      className="transition duration-300 px-3 py-1 dark:text-white bg-slate-200 text-black rounded-lg 
-                      cursor-pointer hover:bg-slate-500 flex items-center dark:bg-slate-700 gap-2"
+                  <td className="border px-4 py-2 dark:border-slate-500">
+                    <div className="flex justify-center gap-2" >
+                      <button
+                      className="transition duration-300 p-1 dark:text-white bg-slate-200 text-black rounded-lg 
+                      cursor-pointer hover:bg-slate-500 flex items-center justify-center dark:bg-slate-700 gap-2"
                       onClick={() => handleEdit(client.id)}
                     >
-                      <FaEdit />
-                      Editar
-                    </button>
+                      <FaEdit className="ml-0.5"/>
+                      </button>
+                      <Link to={`/client-list/${client.id}`}>
+                        <button className="transition duration-300 p-1 dark:text-white bg-slate-200 text-black rounded-lg 
+                          cursor-pointer hover:bg-slate-500 flex items-center justify-center dark:bg-slate-700 gap-2">
+                          <Eye size={16}/>
+                        </button>
+                      </Link>
+                      
+                    
+                    </div>
+                    
                   </td>
                 </tr>
               ))
@@ -157,9 +164,13 @@ const Home = () => {
       {isModalOpen && (
         <div className="fixed inset-0 backdrop-blur-md bg-black/70 flex justify-center items-center z-50">
           <div className="bg-white dark:bg-slate-900 rounded-lg shadow-lg p-6 w-full max-w-xl max-h-[80vh] overflow-y-auto">
-            <h2 className="text-2xl font-bold mb-4">
+            <div className="flex justify-between">
+              <h2 className="text-2xl font-bold mb-4">
               {editMode ? "Editar Cliente" : "Cadastrar Cliente"}
-            </h2>
+              </h2>
+              <X onClick={() => setIsModalOpen(false)} className="text-red-500 hover:cursor-pointer"/>
+            </div>
+           
             <ClientForm
               formData={formData}
               setFormData={setFormData}

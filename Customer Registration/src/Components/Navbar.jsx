@@ -8,7 +8,7 @@ import { X } from 'lucide-react';
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 
-const Navbar = ({ searchQuery, handleSearch}) => {
+const Navbar = () => {
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
     useEffect(() => {
     if (theme === 'dark') {
