@@ -5,6 +5,8 @@ import { Menu } from "lucide-react"
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import { X } from 'lucide-react';
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebase";
 
 const Navbar = () => {
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
@@ -26,8 +28,16 @@ const Navbar = () => {
   
   const navigate = useNavigate();
   const [sideBar, setSideBar] = useState(false)
-  const handleLogoff = () => {
-    navigate("/");
+
+  const handleLogoff = async () => {
+    try {
+
+      await signOut(auth);
+      navigate("/");
+
+    } catch (error) {
+      console.error("Erro ao deslogar:", error);
+    }
   };
 
   const handleSidebar = () => {
