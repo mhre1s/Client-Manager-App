@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import { X } from 'lucide-react';
 
-const Navbar = ({ searchQuery, handleSearch}) => {
+const Navbar = () => {
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
     useEffect(() => {
     if (theme === 'dark') {

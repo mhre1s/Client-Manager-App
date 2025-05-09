@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import settTech from '../assets/Juan.png'
 
+
 const LoginScreen = () => {
   const navigate = useNavigate();
 
