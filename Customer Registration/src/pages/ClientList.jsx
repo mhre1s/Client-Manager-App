@@ -12,6 +12,7 @@ import { X } from 'lucide-react';
 import { Eye } from 'lucide-react'
 import { Link } from "react-router";
 
+
 const Home = () => {
 
   const {

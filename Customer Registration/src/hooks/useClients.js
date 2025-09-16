@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
-import { db } from '../firebase/firebase';
+import { useState, useEffect } from "react";
+import { db } from "../firebase/firebase";
+import { query, where } from "firebase/firestore";
 import {
   collection,
   addDoc,
@@ -7,7 +8,11 @@ import {
   deleteDoc,
   doc,
   getDocs,
-} from 'firebase/firestore';
+} from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+
+const auth = getAuth();
+const user = auth.currentUser;
 
 export const useClients = () => {
   const [clients, setClients] = useState([]);
@@ -15,9 +20,10 @@ export const useClients = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [formData, setFormData] = useState({ 
-    name: '', 
-    registers: [] });
+  const [formData, setFormData] = useState({
+    name: "",
+    registers: [],
+  });
   const [editMode, setEditMode] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentClientId, setCurrentClientId] = useState(null);
@@ -26,7 +32,10 @@ export const useClients = () => {
 
   const indexOfLastClient = currentPage * clientsPerPage;
   const indexOfFirstClient = indexOfLastClient - clientsPerPage;
-  const currentClients = filteredClients.slice(indexOfFirstClient, indexOfLastClient);
+  const currentClients = filteredClients.slice(
+    indexOfFirstClient,
+    indexOfLastClient
+  );
   const totalPages = Math.ceil(filteredClients.length / clientsPerPage);
 
   const handleNextPage = () => {
@@ -41,24 +50,38 @@ export const useClients = () => {
     }
   };
 
-  const fetchClients = async () => {
-    try {
-      setLoading(true);
-      const querySnapshot = await getDocs(collection(db, 'clients'));
-      const clientsData = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      const ordenedClients = clientsData.sort((a,b) => a.name.localeCompare(b.name))
-      setClients(ordenedClients);
-      setFilteredClients(clientsData);
+const fetchClients = async () => {
+  try {
+    setLoading(true);
+    const user = auth.currentUser;
+    if (!user) {
+      setError("Usuário não autenticado");
       setLoading(false);
-    } catch (err) {
-      console.error(err);
-      setError('Erro ao buscar clientes');
-      setLoading(false);
+      return;
     }
-  };
+
+    const clientsRef = collection(db, "clients");
+    const q = query(clientsRef, where("userId", "==", user.uid));
+    const querySnapshot = await getDocs(q);
+
+    const clientsData = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    const ordenedClients = clientsData.sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+
+    setClients(ordenedClients);
+    setFilteredClients(ordenedClients);
+    setLoading(false);
+  } catch (err) {
+    console.error(err);
+    setError("Erro ao buscar clientes");
+    setLoading(false);
+  }
+};
 
   const handleSearch = (searchTerm) => {
     setFilteredClients(
@@ -74,25 +97,28 @@ export const useClients = () => {
 
     try {
       if (editMode) {
-        const clientRef = doc(db, 'clients', currentClientId);
+        const clientRef = doc(db, "clients", currentClientId);
         await updateDoc(clientRef, formData);
       } else {
-        await addDoc(collection(db, 'clients'), formData);
+        await addDoc(collection(db, "clients"), {
+          ...formData,
+          userId: auth.currentUser.uid, // adiciona o ID do usuário ao cliente
+        });
       }
       fetchClients();
-      setFormData({ name: '', registers: [] });
+      setFormData({ name: "", registers: [] });
       setIsModalOpen(false);
       setEditMode(false);
     } catch (err) {
-      console.error('Erro ao salvar cliente:', err);
-      setError('Erro ao salvar cliente');
+      console.error("Erro ao salvar cliente:", err);
+      setError("Erro ao salvar cliente");
     }
   };
 
   const handleDeleteClientRegister = (index) => {
     setFormData((prevFormData) => {
       const updatedRegisters = [...prevFormData.registers];
-      updatedRegisters.splice(index, 1); 
+      updatedRegisters.splice(index, 1);
       return {
         ...prevFormData,
         registers: updatedRegisters,
@@ -104,7 +130,7 @@ export const useClients = () => {
     const clientToEdit = clients.find((client) => client.id === clientId);
     if (clientToEdit) {
       setFormData({
-        ...clientToEdit, 
+        ...clientToEdit,
       });
       setEditMode(true);
       setCurrentClientId(clientId);
@@ -142,16 +168,16 @@ export const useClients = () => {
     handleAddRegister: () =>
       setFormData((prev) => ({
         ...prev,
-        registers: [...(prev.registers || []), ''],
+        registers: [...(prev.registers || []), ""],
       })),
-      handleRegisterChange: (index, field, value) => {
-        const newRegisters = [...formData.registers];
-        newRegisters[index] = {
-          ...newRegisters[index],
-          [field]: value,
-        };
-        setFormData({ ...formData, registers: newRegisters });
-      },
+    handleRegisterChange: (index, field, value) => {
+      const newRegisters = [...formData.registers];
+      newRegisters[index] = {
+        ...newRegisters[index],
+        [field]: value,
+      };
+      setFormData({ ...formData, registers: newRegisters });
+    },
     handleEdit,
   };
 };

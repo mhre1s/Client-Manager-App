@@ -34,14 +34,21 @@ const LoginScreen = () => {
     e.preventDefault();
     setError(null);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      console.log("UID do usuário logado:", user.uid); // Agora funciona!
 
       if (remember) {
-        localStorage.setItem('rememberedUser', email);
-        localStorage.setItem('rememberedPassword', password);
+        localStorage.setItem("rememberedUser", email);
+        localStorage.setItem("rememberedPassword", password);
       } else {
-        localStorage.removeItem('rememberedUser');
-        localStorage.removeItem('rememberedPassword');
+        localStorage.removeItem("rememberedUser");
+        localStorage.removeItem("rememberedPassword");
       }
 
       navigate("/client-list");
@@ -50,7 +57,6 @@ const LoginScreen = () => {
       setError("Email ou senha inválidos");
     }
   };
-
   return (
     <div>
       <main className="w-full min-h-screen flex flex-col md:flex-row items-center justify-center mx-auto my-auto">
