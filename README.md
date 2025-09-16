@@ -1,10 +1,17 @@
 # Cliente Manager App
 
-Este repositório contém o código-fonte de um aplicativo web desenvolvido para gerenciar clientes e registrar atendimentos técnicos realizados em suas residências. O objetivo principal é facilitar o trabalho de técnicos de campo, oferecendo uma plataforma para cadastro, edição e consulta de clientes.
+Este repositório contém o código-fonte de um aplicativo web desenvolvido para um conhecido para o mesmo poder gerenciar clientes e registrar atendimentos técnicos realizados em suas residências. O objetivo principal é facilitar o trabalho de técnicos de campo, oferecendo uma plataforma para cadastro, edição e consulta de clientes e agendamentos. (Para que os dados de clientes reais não sejam expostos foi criado uma conta para recrutadores testarem o sistema, seguem instruções em: "Como acessar")
 
 ## Visão Geral
 
 O aplicativo possui duas telas principais:
+
+## Link do app
+https://clientmanagerapp.netlify.app/
+
+### Como acessar
+Usuário de teste para recrutador: testerecrutador@hotmail.com
+Usuário de teste para recrutador: 12345678
 
 1. **Tela de Login**:
 
@@ -18,6 +25,7 @@ O aplicativo possui duas telas principais:
      - Adicionar novos clientes.
      - Editar informações de clientes existentes.
      - Pesquisar clientes por nome, telefone ou endereço.
+     - Verificar atendimentos agendados contanto que estejam com status: em andamento
      - Registrar atendimentos realizados em cada residência, incluindo:
        - Texto descrevendo o que foi feito na residência.
        - Valor cobrado pela visita técnica.
@@ -50,10 +58,12 @@ Cada cliente possui as seguintes informações:
 
 ## Tecnologias Utilizadas
 
-Este projeto contém **somente o frontend**, desenvolvido utilizando:
+Este projeto contém **o frontend e o backend**, desenvolvido utilizando:
 
 - **React**
 - **Tailwind CSS**
+- - **Firebase**
+  - Firestore para DB e autenticação
 - **Ícones**: React-icons
 - **Ferramentas de Desenvolvimento**:
   - Vite para gerenciamento de projetos React.
@@ -90,12 +100,6 @@ O backend e a API REST para gerenciamento dos dados de clientes **não estão in
 ## Contribuição
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests para melhorias e correções.
-
-## Licença
-
-Este projeto está licenciado sob a MIT License. Consulte o arquivo LICENSE para mais detalhes.
-
----
 
 Desenvolvido com ❤️ por [Matheus Reis].
 
