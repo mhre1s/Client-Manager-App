@@ -10,8 +10,8 @@ Usuário: testerecrutador@hotmail.com
 Senha: 12345678
 
 ## Demonstração
-![Tela de login](./prints/loginscreen.png)
-![Tela de clientes](./prints/clientlist.png)
+![Tela de Login](Customer%20Registration/prints/loginscreen.png)
+![Lista de Clientes](Customer%20Registration/prints/clientlist.png)
 
 ## Visão Geral
 
