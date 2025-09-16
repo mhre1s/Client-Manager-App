@@ -5,9 +5,13 @@ Este repositório contém o código-fonte de um aplicativo web desenvolvido para
 ## Link do app
 https://clientmanagerapp.netlify.app/
 
-### Como acessar
+## Como acessar
 Usuário: testerecrutador@hotmail.com
 Senha: 12345678
+
+## Demonstração
+![Tela de login](./prints/loginscreen.png)
+![Tela de clientes](./prints/clientlist.png)
 
 ## Visão Geral
 
