@@ -6,8 +6,8 @@ Este repositório contém o código-fonte de um aplicativo web desenvolvido para
 https://clientmanagerapp.netlify.app/
 
 ### Como acessar
-Usuário de teste para recrutador: testerecrutador@hotmail.com
-Usuário de teste para recrutador: 12345678
+Usuário: testerecrutador@hotmail.com
+Senha: 12345678
 
 ## Visão Geral
 
@@ -31,7 +31,7 @@ O aplicativo possui três telas principais:
        - Valor cobrado pela visita técnica.
      - Fazer logoff da aplicação.
 
-2. **Tela de agendamento de atendimentos**:
+3. **Tela de agendamento de atendimentos**:
 
       - Ao um registro de atendimento ser definido em algum dia e seu status estiver: "Em andamento" será possível ver o atendimento agendado com base na data selecionada
       - É possível ver:
@@ -74,8 +74,6 @@ Este projeto contém **o frontend e o backend**, desenvolvido utilizando:
 - **Ferramentas de Desenvolvimento**:
   - Vite para gerenciamento de projetos React.
 
-O backend e a API REST para gerenciamento dos dados de clientes **não estão incluídos neste repositório**.
-
 ## Como Rodar o Projeto
 
 ### Pré-requisitos (para rodar local)
@@ -107,5 +105,5 @@ O backend e a API REST para gerenciamento dos dados de clientes **não estão in
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests para melhorias e correções.
 
-Desenvolvido com ❤️ por [Matheus Reis].
+Desenvolvido com ❤️ por [Matheus Reis](https://github.com/mhre1s).
 
