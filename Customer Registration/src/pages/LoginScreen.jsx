@@ -60,7 +60,7 @@ const LoginScreen = () => {
   return (
     <div>
       <main className="w-full min-h-screen flex flex-col md:flex-row items-center justify-center mx-auto my-auto">
-        <section className="w-full flex flex-col justify-start items-center min-h-screen flex-1 mt-24 gap-10">
+        <section className="w-full flex flex-col justify-start items-center flex-1 gap-10">
           <img src={settTech} alt="sett tech logo" className="w-72 h-auto"  />
           <div className="w-full max-w-xl flex justify-center items-center gap-4 flex-col">
             <img
