@@ -11,7 +11,7 @@ Usuário de teste para recrutador: 12345678
 
 ## Visão Geral
 
-O aplicativo possui duas telas principais:
+O aplicativo possui três telas principais:
 
 1. **Tela de Login**:
 
@@ -30,6 +30,12 @@ O aplicativo possui duas telas principais:
        - Texto descrevendo o que foi feito na residência.
        - Valor cobrado pela visita técnica.
      - Fazer logoff da aplicação.
+
+2. **Tela de agendamento de atendimentos**:
+
+      - Ao um registro de atendimento ser definido em algum dia e seu status estiver: "Em andamento" será possível ver o atendimento agendado com base na data selecionada
+      - É possível ver:
+         - Nome, endereço, telefone e o serviço a ser realizado naquele atendimento    
 
 ## Funcionalidades
 
