@@ -2,16 +2,16 @@
 
 Este repositório contém o código-fonte de um aplicativo web desenvolvido para um conhecido para o mesmo poder gerenciar clientes e registrar atendimentos técnicos realizados em suas residências. O objetivo principal é facilitar o trabalho de técnicos de campo, oferecendo uma plataforma para cadastro, edição e consulta de clientes e agendamentos. (Para que os dados de clientes reais não sejam expostos foi criado uma conta para recrutadores testarem o sistema, seguem instruções em: "Como acessar")
 
-## Visão Geral
-
-O aplicativo possui duas telas principais:
-
 ## Link do app
 https://clientmanagerapp.netlify.app/
 
 ### Como acessar
 Usuário de teste para recrutador: testerecrutador@hotmail.com
 Usuário de teste para recrutador: 12345678
+
+## Visão Geral
+
+O aplicativo possui duas telas principais:
 
 1. **Tela de Login**:
 
