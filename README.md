@@ -62,7 +62,7 @@ O backend e a API REST para gerenciamento dos dados de clientes **não estão in
 
 ## Como Rodar o Projeto
 
-### Pré-requisitos
+### Pré-requisitos (para rodar local)
 
 - Node.js instalado
 - Gerenciador de pacotes (npm ou yarn)
