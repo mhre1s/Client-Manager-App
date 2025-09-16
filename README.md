@@ -72,7 +72,7 @@ Este projeto contém **o frontend e o backend**, desenvolvido utilizando:
 
 - **React**
 - **Tailwind CSS**
-- - **Firebase**
+- **Firebase**
   - Firestore para DB e autenticação
 - **Ícones**: React-icons
 - **Ferramentas de Desenvolvimento**:
