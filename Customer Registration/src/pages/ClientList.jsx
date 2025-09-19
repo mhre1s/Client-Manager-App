@@ -195,11 +195,13 @@ const Home = () => {
                     rows="3"
                     className="w-full p-2 border rounded-sm mb-2"
                     placeholder="Registro de atendimento"
+                    required
                   />
                   <label className="block font-medium mb-1">
                     Valor Cobrado (R$)
                   </label>
                   <input
+                    required
                     type="number"
                     value={register.value}
                     onChange={(e) =>
@@ -213,6 +215,7 @@ const Home = () => {
                   </label>
                   <input
                     type="date"
+                    required
                     value={register.date}
                     onChange={(e) =>
                       handleRegisterChange(index, "date", e.target.value)
